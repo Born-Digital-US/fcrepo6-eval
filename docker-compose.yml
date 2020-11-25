@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+  # Ref: https://github.com/fcrepo-exts/fcrepo-docker
+  # Fedora root will be available at http://localhost:8080/fcrepo
+  # Fedora REST API: http://localhost:8080/fcrepo/rest/
+  # Shell into the container with 'docker-compose exec fcrepo bash'
+  fcrepo:
+    image: fcrepo/fcrepo:6.0.0-SNAPSHOT
+    environment:
+      FEDORA_ADMIN_USERNAME: fedoraAdmin
+      FEDORA_ADMIN_PASSWORD: fedoraAdmin
+      CATALINA_OPTS: -Dfcrepo.config.file=/fcrepo.properties
+    ports:
+    - published: 8080
+      target: 8080
+    volumes:
+    - ./config/fcrepo.properties:/fcrepo.properties 
+    - ./data/fedora:/fedora_home:rw
+
